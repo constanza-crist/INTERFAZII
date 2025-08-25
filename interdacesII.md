@@ -95,5 +95,9 @@ void loop() {
   //digitalWrite(LED_4, LOW);   // Verde peatones apagado
   //digitalWrite(LED_5, HIGH);  // Rojo peatones encendido
   //delay(2000); // 2 segundos
+
+
+<img width="1562" height="818" alt="Captura de pantalla 2025-08-25 101355" src="https://github.com/user-attachments/assets/b9235a09-4ce0-4c8d-850e-81d14a56b18e" />
+
 }
 
