@@ -50,6 +50,7 @@ void loop() {
    }
 }
 ```
+###Semaforo arduino
 
 // C++ code - Semáforo Autos y Peatones
 
