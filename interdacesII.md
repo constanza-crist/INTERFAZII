@@ -35,7 +35,24 @@ void loop() {
     digitalWrite(8, LOW);
   delay(500);
 }
+<img width="1541" height="811" alt="image" src="https://github.com/user-attachments/assets/edbaa7f5-d90a-4121-8665-378d23acd376" />
 
+
+```
+Led con pulsador
+
+void setup() {
+  pinMode(2, INPUT);  // Botón como entrada
+  pinMode(13, OUTPUT);
+}
+void loop() {
+  if (digitalRead(2) == HIGH) {  // Si se presiona el botón
+    digitalWrite(13, HIGH);
+  } else {
+    digitalWrite(13, LOW);
+  }
+}
+<img width="1426" height="814" alt="image" src="https://github.com/user-attachments/assets/dae40f41-6f5e-4f76-b54a-45adeb1a7f3e" />
 
 
 
