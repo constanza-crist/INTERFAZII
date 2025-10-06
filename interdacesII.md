@@ -14,7 +14,7 @@ void loop() {
 ```
 <img width="1590" height="826" alt="image" src="https://github.com/user-attachments/assets/4064b4ac-5bff-405a-a1b5-defcd96f5502" />
 
-##### LED Intermitente (Blink)
+##### Ejercicio n°2 LED Intermitente (Blink)
 ```js
 
 #### Ejercicio n°2: Semaforo
@@ -39,7 +39,7 @@ void loop() {
 
 
 ```
-Led con pulsador
+### Ejercicio n°3 Led con pulsador
 
 void setup() {
   pinMode(2, INPUT);  // Botón como entrada
@@ -56,8 +56,7 @@ void loop() {
 
 
 
-```
-Led con potenciometro
+### Ejercicio n°4 Led con potenciometro
 void setup() {
   pinMode(9, OUTPUT);  // Pin PWM (símbolo ~)
 }
@@ -70,7 +69,7 @@ void loop() {
 
 
 ```
-### Semaforo arduino
+### Ejercicio n°5 Semaforo arduino
 
 // C++ code - Semáforo Autos y Peatones
 
@@ -176,8 +175,7 @@ for (int i = 0; i < 5; i++) {   // Parpadea 5 veces
 
 
 
-```
-### Boton+potenciometro processing
+### Ejercicio n°6 Boton+potenciometro processing
 Arduino:
 int buttonPin = 2;       // Pin del botón
 int potPin = A0;         // Pin del potenciómetro
@@ -261,6 +259,72 @@ class CircleData {
 <img width="1195" height="755" alt="Captura de pantalla 2025-09-01 105539" src="https://github.com/user-attachments/assets/d22598e7-9e5f-45cd-a6bc-5b98a8e22fef" />
 
 ````
+
+### Ejercicio n°7 Pulsador + arduino + processing
+Codigo arduino: int buttonPin = 2;  // Pin del botón
+int buttonState = 0;
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP); // Botón con resistencia interna
+  Serial.begin(9600);
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+
+  if (buttonState == HIGH) {   // Botón presionado
+    Serial.println(1);        // Enviar un "1" a Processing
+    delay(200);               // Evitar rebotes
+  }
+}
+
+Processing: 
+import processing.serial.*;
+
+Serial myPort;
+ArrayList<PVector> circles; 
+
+void setup() {
+  size(1920, 1080);
+  background(0);
+  
+  // Ajusta el nombre del puerto según tu Arduino
+  println(Serial.list());
+  //myPort = new Serial(this, "/dev/cu.usbmodem1101", 9600);
+  myPort = new Serial(this, Serial.list()[0], 9600);
+  
+  circles = new ArrayList<PVector>();
+}
+
+void draw() {
+  //background(0);
+  
+  // Dibujar círculos almacenados
+  fill(#2A890E);
+  //noStroke();
+  stroke(0, 0, 0);
+  for (PVector c : circles) {
+    ellipse(c.x, c.y, 200, 200);
+  }
+  
+  // Revisar si llega algo de Arduino
+  if (myPort.available() > 0) {
+    String val = myPort.readStringUntil('\n');
+    if (val != null) {
+      val = trim(val);
+      if (val.equals("1")) {
+        // Cada vez que se aprieta el botón, agregar un círculo en posición aleatoria
+        circles.add(new PVector(random(width), random(height)));
+      }
+    }
+  }
+}
+
+
+````
+
+
+
 
 ejercicio seleccionado:
 Semaforo mas musica (se utilizo la ayuda de chatGPT para los codigos)
