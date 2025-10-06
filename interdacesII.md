@@ -57,16 +57,17 @@ void loop() {
 
 
 ```
-void setup(){ 
-  pinMode(2, INPUT) ;
-  pinMode(13, OUTPUT);
+Led con potenciometro
+void setup() {
+  pinMode(9, OUTPUT);  // Pin PWM (símbolo ~)
 }
-void loop() { 
-  if (digitalRead (2) == HIGH);
- else { 
-  digitalWrite(13, LOW);
-   }
+void loop() {
+  int valor = analogRead(A0);           // Leer potenciómetro (0-1023)
+  int brillo = map(valor, 0, 1023, 0, 255);  // Convertir a rango PWM
+  analogWrite(9, brillo);               // Ajustar brillo
 }
+<img width="1133" height="791" alt="image" src="https://github.com/user-attachments/assets/235e56be-335d-423b-9a68-fdd0cc2f7b90" />
+
 ```
 ### Semaforo arduino
 
