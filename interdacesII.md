@@ -12,6 +12,7 @@ void loop() {
 
 }
 ```
+<img width="1590" height="826" alt="image" src="https://github.com/user-attachments/assets/4064b4ac-5bff-405a-a1b5-defcd96f5502" />
 
 ##### LED Intermitente (Blink)
 ```js
