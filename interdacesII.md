@@ -66,7 +66,8 @@ void loop() {
   int brillo = map(valor, 0, 1023, 0, 255);  // Convertir a rango PWM
   analogWrite(9, brillo);               // Ajustar brillo
 }
-<img width="1133" height="791" alt="image" src="https://github.com/user-attachments/assets/235e56be-335d-423b-9a68-fdd0cc2f7b90" />
+<img width="1189" height="833" alt="image" src="https://github.com/user-attachments/assets/9e32be1c-1e01-4804-88ab-c8c10252cde4" />
+
 
 ```
 ### Semaforo arduino
@@ -171,7 +172,8 @@ for (int i = 0; i < 5; i++) {   // Parpadea 5 veces
   //delay(2000); // 2 segundos
 }
 
-<img width="1562" height="818" alt="Captura de pantalla 2025-08-25 101355" src="https://github.com/user-attachments/assets/b9235a09-4ce0-4c8d-850e-81d14a56b18e" />
+<img width="1525" height="796" alt="image" src="https://github.com/user-attachments/assets/82baf371-d4a2-42fa-81c9-d64b49ca0d4e" />
+
 
 
 ```
