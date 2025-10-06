@@ -239,6 +239,128 @@ class CircleData {
 }
 <img width="1195" height="755" alt="Captura de pantalla 2025-09-01 105539" src="https://github.com/user-attachments/assets/d22598e7-9e5f-45cd-a6bc-5b98a8e22fef" />
 
+````
 
+ejercicio seleccionado:
+Semaforo mas musica (se utilizo la ayuda de chatGPT para los codigos)
+
+codigo arduino:
+int ledsArriba[] = {6, 7, 8}; // 3 LEDs arriba (volumen)
+int ledsAbajo[] = {9, 10};    // 2 LEDs abajo (beat)
+
+void setup() {
+  Serial.begin(9600);
+  for (int i = 0; i < 3; i++) pinMode(ledsArriba[i], OUTPUT);
+  for (int i = 0; i < 2; i++) pinMode(ledsAbajo[i], OUTPUT);
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    String data = Serial.readStringUntil('\n'); // leer línea completa
+    data.trim();
+    
+    if (data.length() > 0 && data.indexOf(',') != -1) {
+      int commaIndex = data.indexOf(',');
+      int volume = data.substring(0, commaIndex).toInt();
+      int beat = data.substring(commaIndex + 1).toInt();
+
+      // --- LEDs de arriba (volumen) ---
+      for (int i = 0; i < 3; i++) {
+        if (i < volume) digitalWrite(ledsArriba[i], HIGH);
+        else digitalWrite(ledsArriba[i], LOW);
+      }
+
+      // --- LEDs de abajo (beat) ---
+      for (int i = 0; i < 2; i++) {
+        digitalWrite(ledsAbajo[i], beat == 1 ? HIGH : LOW);
+      }
+    }
+  }
+}
+
+Codigo Processing:
+
+import processing.serial.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+
+Minim minim;
+AudioPlayer song;
+BeatDetect beat;
+Serial myPort;
+
+// --- Lista de canciones disponibles ---
+String[] canciones = {
+  "ado.mp3",
+  "canary.mp3",
+  "charles.mp3",
+  "cuchito.mp3"
+};
+
+String nombreActual = ""; // nombre de la canción actual
+
+void setup() {
+  size(400, 200);
+  
+  minim = new Minim(this);
+  reproducirNuevaCancion(); // arranca con una canción al azar
+  
+  beat = new BeatDetect();
+  
+  // --- Configurar Serial ---
+  printArray(Serial.list());
+  myPort = new Serial(this, Serial.list()[0], 9600);
+}
+
+void draw() {
+  background(0);
+  fill(255);
+  
+  // --- Detectar nivel de volumen ---
+  float level = song.mix.level();
+  int volumeLevel = (int)map(level, 0, 0.5, 0, 3);
+  
+  // --- Detectar beats ---
+  beat.detect(song.mix);
+  int beatActive = beat.isOnset() ? 1 : 0;
+  
+  // --- Mostrar información ---
+  text("Volumen LEDs: " + volumeLevel, 20, 40);
+  text("Beat: " + beatActive, 20, 70);
+  text("Pista actual: " + nombreActual, 20, 100);
+  text("Presiona ESPACIO para cambiar de canción", 20, 140);
+  
+  // --- Enviar datos a Arduino ---
+  String data = volumeLevel + "," + beatActive + "\n";
+  myPort.write(data);
+  
+  // --- Si la canción termina sola, pasar a otra ---
+  if (!song.isPlaying()) {
+    reproducirNuevaCancion();
+  }
+}
+
+// --- Reproducir una canción aleatoria ---
+void reproducirNuevaCancion() {
+  if (song != null) {
+    song.close();
+  }
+  
+  int indice = (int)random(canciones.length);
+  nombreActual = canciones[indice];
+  println("🎵 Reproduciendo: " + nombreActual);
+  
+  song = minim.loadFile(nombreActual, 2048);
+  song.play();
+  beat = new BeatDetect();
+}
+
+// --- Detectar tecla presionada ---
+void keyPressed() {
+  if (key == ' ') {
+    println("⏭ Cambio manual de canción");
+    reproducirNuevaCancion();
+  }
+}
 }
 
