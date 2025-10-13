@@ -1,6 +1,6 @@
 # INTERFAZII
 Indice
-1. [Hola mundo] (#ejercicio-n1-hola-mundo-en-arduino)
+1. Hola mundo (#ejercicio-n1-hola-mundo-en-arduino)
 
 ##### Ejercicio n°1: Hola mundo!" en Arduino
 
